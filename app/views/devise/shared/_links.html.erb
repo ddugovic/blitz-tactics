@@ -7,7 +7,7 @@
 
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
     Don't have an account? &mdash;
-    <%= link_to "Sign up", https_registration_url %><br />
+    <%= link_to "Login", https_login_url %><br />
   <% end -%>
 
   <%- if false and devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>

@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable, :validatable,
   # :recoverable, and :omniauthable
 
-  devise :database_authenticatable, :registerable, :rememberable,
-         :trackable, :validatable, :recoverable,
+  devise :database_authenticatable, :rememberable,
+         :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:lichess]
 
   has_many :level_attempts

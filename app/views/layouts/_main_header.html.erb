@@ -25,9 +25,9 @@
         <%= current_user.username %>
       </a>
     <% else %>
-      <a href="<%= https_registration_url %>" class="link-right user-link sign-in">
+      <a href="<%= https_login_url %>" class="link-right user-link sign-in">
         <svg><use xlink:href="#sign-in"/></svg>
-        <span>Sign up</span>
+        <span>Login</span>
       </a>
     <% end %>
 
