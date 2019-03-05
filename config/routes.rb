@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
   root 'pages#home'
+
+  # OmniAutho
+  get '/auth/:provider/callback', to: 'sessions#create'
 
   # infinity mode
   get '/infinity'                => 'game_modes/infinity#index'
