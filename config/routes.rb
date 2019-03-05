@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   # OmniAutho
-  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/users/auth/:provider/callback', to: 'sessions#create'
 
   # infinity mode
   get '/infinity'                => 'game_modes/infinity#index'
