@@ -6,17 +6,7 @@
 
     <%= render "devise/shared/links" %>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-
-      <div class="field">
-        <%= f.label :username %>
-        <%= f.text_field :username, autofocus: true %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: "off" %>
-      </div>
+    <%= form_for(resource, as: resource_name, url: https_login_url) do |f| %>
 
       <% if devise_mapping.rememberable? -%>
         <div class="field">

@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+  devise_scope :user do
+    get '/session/new(.:format)'        =>  'devise/sessions#new',      as: :new_user_session
+    get '/session/sign_out(.:format)'   =>  'devise/sessions#destroy',  as: :destroy_user_session
+  end
 
   root 'pages#home'
 
   # OmniAutho
-  get '/users/auth/:provider/callback', to: 'sessions#create'
+  get '/users/auth/:provider/callback', to: 'devise/sessions#create'
 
   # infinity mode
   get '/infinity'                => 'game_modes/infinity#index'
