@@ -8,20 +8,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -479,7 +465,7 @@ CREATE TABLE public.positions (
     goal character varying,
     name character varying,
     description text,
-    configuration jsonb DEFAULT '{}'::jsonb NOT NULL,
+    configuration jsonb DEFAULT '"{}"'::jsonb NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -857,7 +843,9 @@ CREATE TABLE public.users (
     updated_at timestamp without time zone NOT NULL,
     username character varying,
     profile jsonb,
-    tagline character varying
+    tagline character varying,
+    provider character varying,
+    uid character varying
 );
 
 
@@ -1520,6 +1508,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190220052623'),
 ('20190221152057'),
 ('20190221152105'),
-('20190221152109');
+('20190221152109'),
+('20190305202133');
 
 
