@@ -1,12 +1,7 @@
 class User < ActiveRecord::Base
   include UserDelegates
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :validatable,
-  # :recoverable, and :omniauthable
-
-  devise :database_authenticatable, :rememberable,
-         :trackable, :validatable,
+  devise :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:lichess]
 
   has_many :level_attempts
@@ -24,8 +19,6 @@ class User < ActiveRecord::Base
   after_initialize :set_default_profile
 
   before_validation :nullify_blank_email
-  validates :email, uniqueness: true, allow_blank: true
-  validate :validate_username
 
   def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -34,14 +27,6 @@ class User < ActiveRecord::Base
         user.email = auth.info.email
         user.password = Devise.friendly_token[0,20]
       end
-  end
-
-  # for devise to case-insensitively find users by username
-  def self.find_for_database_authentication(conditions)
-    if conditions.has_key?(:username)
-      username = conditions[:username].downcase
-      where("LOWER(username) = ?", username).first
-    end
   end
 
   # infinity puzzle methods
@@ -179,25 +164,5 @@ class User < ActiveRecord::Base
     self.profile ||= {
       "levels_unlocked": [1]
     }
-  end
-
-  def nullify_blank_email
-    self.email = nil if self.email.blank?
-  end
-
-  def validate_username
-    unless username =~ /\A[a-z]/i
-      errors.add :username, "must start with a letter"
-    end
-    unless username =~ /\A[a-z][a-z0-9_]{2,}\Z/i
-      errors.add :username, "must be at least 3 letters, numbers, or underscores"
-    end
-    if username.length > 32
-      errors.add :username, "is too long"
-    end
-    return unless new_record?
-    if User.where("LOWER(username) = ?", username.downcase).count > 0
-      errors.add :username, "is already registered"
-    end
   end
 end

@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :set_request_format, only: [:show]
-  before_action :require_logged_in_user!,
+  before_action :authenticate_user!,
     only: [:update, :customize_board, :update_board]
 
   def show
