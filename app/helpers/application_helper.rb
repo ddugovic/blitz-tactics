@@ -6,9 +6,9 @@ module ApplicationHelper
 
   def https_login_url
     if Rails.env.production?
-      new_user_session_url(:protocol => "https")
+      user_lichess_omniauth_authorize_url(:protocol => "https")
     else
-      new_user_session_path
+      user_lichess_omniauth_authorize_path
     end
   end
 
